@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Person</title>
+</head>
+<body>
+
+<p th:text="${person.getName()+', '+ person.getYear()}">VALUE</p>
+
+
+<a th:if="${books.size} == 0 "> The person hasn't picked up any books yet </a>
+
+<a th:unless="${books.size} == 0 ">
+<table>
+    <hr/>
+    <p style="font-weight:bold" th:text ="${'Books:'}"> text </p>
+
+    <tr th:each="book: ${books}" >
+
+        <td th:text="${book.nameOfBook + ', '}">Name of book</td>
+        <td th:text="${book.author + ', '}"> Author</td>
+        <td th:text="${book.year + '; '}">Year of book</td>
+        <td>
+
+           <a th:href="@{/books/{id}(id=${book.getId()})}"> view the book </a>
+
+
+         </td>
+
+
+    </tr>
+</table>
+</a>
+
+<hr/>
+
+
+<form th:method="GET" th:action = "@{/people/{person_id}/edit (person_id=${person.getPerson_id()}) }">
+    <input type="submit" style="color:orange"  value="Edit">
+   </form>
+
+<br>
+
+<form th:method="DELETE" th:action="@{/people/{person_id} (person_id = ${person.getPerson_id()}) }">
+    <input type="submit" value="Delete"/>
+    </form>
+<br>
+<br>
+<a th:href="@{/people }"> o-<  Back to people list </a>
+
+<br>
+<br>
+<a th:href="@{/books }"> >< Back to book list </a>
+
+</body>
+</html>
