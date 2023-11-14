@@ -1,17 +1,30 @@
 package com.klachkova.library.modeles;
 
+import javax.persistence.*;
 import javax.validation.constraints.*;
+import java.util.List;
 
+@Entity
+@Table (name = "Person")
 public class Person {
+
+    @Id
+    @Column(name = "person_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int person_id;
 
     @NotEmpty(message = "Name should not be empty")
     @Size(min = 1, max = 50, message = "Name should be between 1 and 50 characters")
+    @Column(name = "name")
     private String name;
 
     @Min(value = 1923, message = "A person should not be over 100 years old")
     @Max(value = 2017, message = "The person must be 6 years of age or older")
+    @Column(name = "year")
     private int year;
+
+    @OneToMany (mappedBy = "owner")
+    private List<Book> books;
 
     public Person() {
     }

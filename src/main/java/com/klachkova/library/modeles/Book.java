@@ -1,19 +1,32 @@
 package com.klachkova.library.modeles;
 
+import javax.persistence.*;
 import javax.validation.constraints.*;
 
+@Entity
+@Table(name = "Book")
 public class Book {
+    @Id
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @NotEmpty(message = "Name of the book should not be empty")
     @Size(min = 1, max = 100, message = "Name of the book should be between 1 and 100 characters")
+    @Column(name = "nameofbook")
     private String nameOfBook;
 
     @Size(min = 0, max = 50, message = "The author's name must not exceed 50 characters")
+    @Column(name = "author")
     private String author;
 
     @Min(value = 1000, message = "The year must be in the format: 1234")
     @Max(value = 9999, message = "The year must be in the format: 1234")
+    @Column(name = "year")
     private int year;
+
+    @ManyToOne
+    @JoinColumn(name = "person_id", referencedColumnName = "person_id")
+    private Person owner;
 
     public Book() {
     }
