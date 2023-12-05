@@ -30,9 +30,8 @@ public class PeopleService {
     }
 
     // метод для поиска человека по имени и году  ( кастомный)
-    public Person findOne (String name, int year){
-        Optional<Person> foundPerson = peopleRepository.findByNameAndYear(name,year);
-        return foundPerson.orElse(null);
+    public Optional<Person> findOne (String name, int year){
+        return peopleRepository.findByNameAndYear(name,year);
     }
     // метод для поиска человека по книге
     public Person findByBook (Book book) {
