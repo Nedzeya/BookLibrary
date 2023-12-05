@@ -3,6 +3,7 @@ package com.klachkova.library.controllers;
 import com.klachkova.library.dao.BookDAO;
 import com.klachkova.library.dao.PersonDAO;
 import com.klachkova.library.modeles.Book;
+import com.klachkova.library.modeles.Person;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -37,6 +38,7 @@ public class BooksController {
                        Model model ) {
 
         model.addAttribute("book", bookDAO.show(id));
+        // есть метод поиска человека по книге в peopleRepository
         model.addAttribute("person",personDAO.show (bookDAO.getPerson_id(id)));
         model.addAttribute("people",personDAO.index());
 
@@ -85,11 +87,12 @@ public class BooksController {
        return "redirect:/books/{id}";
     }
 
+    //необходимо принимать человека а не его айди @RequestParam("person_id") int selectedPerson_id,изменено
     @PostMapping("/{id}")
-    public String assign (@RequestParam("person_id") int selectedPerson_id,
+    public String assign (@RequestParam("person") Person person,
                           @PathVariable("id") int id){
 
-        bookDAO.assign (selectedPerson_id,id);
+        bookDAO.assign (person,id);
         return "redirect:/books/{id}";
     }
 

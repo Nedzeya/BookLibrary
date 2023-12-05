@@ -1,6 +1,7 @@
 package com.klachkova.library.dao;
 
 import com.klachkova.library.modeles.Book;
+import com.klachkova.library.modeles.Person;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -28,6 +29,9 @@ public class BookDAO {
                 .stream().findAny().orElse(null);
     }
 
+
+    // создан метод поиска книги по айди в боок репозитории
+    // и метод поиска человека по книге в people repository
     public Integer getPerson_id(int id) {
         return jdbcTemplate.queryForObject("SELECT book.person_id FROM Book WHERE id = ?", new Object[]{id},
                 Integer.class);
@@ -47,7 +51,7 @@ public class BookDAO {
         jdbcTemplate.update("UPDATE Book SET person_id = null WHERE id =?", id);
     }
 
-    public void assign(int selectedPerson_id, int id) {
+    public void assign(Person selectedPerson_id, int id) {
         jdbcTemplate.update("UPDATE Book SET person_id = ? WHERE id =?", selectedPerson_id, id);
     }
 

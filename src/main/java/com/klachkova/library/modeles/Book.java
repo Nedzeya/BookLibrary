@@ -69,5 +69,11 @@ public class Book {
         this.year = year;
     }
 
+    public void setOwner(Person owner) {
+        this.owner = owner;
+    }
 
+    public Person getOwner() {
+        return owner;
+    }
 }

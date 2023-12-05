@@ -1,5 +1,6 @@
 package com.klachkova.library.services;
 
+import com.klachkova.library.modeles.Book;
 import com.klachkova.library.modeles.Person;
 import com.klachkova.library.repositories.PeopleRepository;
 import org.springframework.stereotype.Service;
@@ -29,8 +30,14 @@ public class PeopleService {
 
     // метод для поиска человека по имени и году  ( кастомный)
     public Person findOne (String name, int year){
-        Optional<Person> foundPerson = peopleRepository.findDistinctByNameAndYaer(name,year);
+        Optional<Person> foundPerson = peopleRepository.findByNameAndYear(name,year);
+        return foundPerson.orElse(null);
     }
+    // метод для поиска человека по книге
+    public Person findByBook (Book book) {
+        return peopleRepository.findByBook(book);
+    }
+
 
     @Transactional
     public void save (Person person){
