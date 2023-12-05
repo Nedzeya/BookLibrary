@@ -1,9 +1,9 @@
 package com.klachkova.library.controllers;
 
-import com.klachkova.library.dao.BookDAO;
-import com.klachkova.library.dao.PersonDAO;
 import com.klachkova.library.modeles.Book;
 import com.klachkova.library.modeles.Person;
+import com.klachkova.library.services.BooksService;
+import com.klachkova.library.services.PeopleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,32 +15,32 @@ import javax.validation.Valid;
 @Controller
 @RequestMapping("/books")
 public class BooksController {
-    private final BookDAO bookDAO;
-     private final PersonDAO personDAO;
+    private final PeopleService peopleService;
+    private final BooksService booksService;
 
 
 
     @Autowired
-    public BooksController(BookDAO bookDAO, PersonDAO personDAO) {
-        this.bookDAO = bookDAO;
-        this.personDAO = personDAO;
-
+    public BooksController( PeopleService peopleService, BooksService booksService) {
+        this.peopleService = peopleService;
+        this.booksService = booksService;
     }
 
     @GetMapping()
     public String index(Model model) {
-        model.addAttribute("books", bookDAO.index());
+        model.addAttribute("books", booksService.findAll());
         return "books/index";
     }
 
     @GetMapping("/{id}")
     public String show(@PathVariable("id") int id,
                        Model model ) {
-
-        model.addAttribute("book", bookDAO.show(id));
+        Book book = booksService.findOne(id);
+        model.addAttribute("book", booksService.findOne(id));
         // есть метод поиска человека по книге в peopleRepository
-        model.addAttribute("person",personDAO.show (bookDAO.getPerson_id(id)));
-        model.addAttribute("people",personDAO.index());
+        model.addAttribute("person",peopleService.findByBook(book));
+
+        model.addAttribute("people",peopleService.findAll());
 
         return "books/show";
     }
@@ -59,13 +59,13 @@ public class BooksController {
             return "books/new";
         }
 
-        bookDAO.save(book);
+        booksService.save(book);
         return "redirect:/books";
     }
 
     @GetMapping("/{id}/edit")
     public String edit(Model model, @PathVariable("id") int id) {
-        model.addAttribute("book", bookDAO.show(id));
+        model.addAttribute("book", booksService.findOne(id));
         return "books/edit";
     }
 
@@ -77,13 +77,13 @@ public class BooksController {
         if (bindingResult.hasErrors()) {
             return "books/edit";
         }
-        bookDAO.update(id, book);
+        booksService.update(id, book);
         return "redirect:/books";
 
     }
    @GetMapping ("/{id}/free")
    public String free ( @PathVariable("id") int id) {
-       bookDAO.free (id);
+       booksService.free (id);
        return "redirect:/books/{id}";
     }
 
@@ -92,13 +92,13 @@ public class BooksController {
     public String assign (@RequestParam("person") Person person,
                           @PathVariable("id") int id){
 
-        bookDAO.assign (person,id);
+        booksService.assign (person,id);
         return "redirect:/books/{id}";
     }
 
     @DeleteMapping("/{id}")
     public String delete(@PathVariable("id") int id) {
-        bookDAO.delete(id);
+        booksService.delete(id);
         return "redirect:/books";
     }
 }

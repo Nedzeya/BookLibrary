@@ -33,6 +33,10 @@ public class BooksService {
         return foundBook.orElse(null);
     }
 
+    public List<Book> findByOwner (Person owner) {
+        return booksRepository.findByOwner(owner);
+    }
+
     @Transactional
     public void save(Book book) {
         booksRepository.save(book);
