@@ -1,4 +1,4 @@
-package com.klachkova.library.modeles;
+package com.klachkova.library.models;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -58,5 +58,14 @@ public class Person {
 
     public void setYear(int year) {
         this.year = year;
+    }
+
+    @Override
+    public String toString() {
+        return "Person{" +
+                "person_id=" + person_id +
+                ", name='" + name + '\'' +
+                ", year=" + year +
+                '}';
     }
 }

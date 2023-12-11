@@ -1,7 +1,7 @@
 package com.klachkova.library.services;
 
-import com.klachkova.library.modeles.Book;
-import com.klachkova.library.modeles.Person;
+import com.klachkova.library.models.Book;
+import com.klachkova.library.models.Person;
 import com.klachkova.library.repositories.PeopleRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -33,9 +33,10 @@ public class PeopleService {
     public Optional<Person> findOne (String name, int year){
         return peopleRepository.findByNameAndYear(name,year);
     }
-    // метод для поиска человека по книге
+    // метод для поиска человека по книге возможно Servlet.init() для сервлета [dispatcher] выбросил исключение
+    // м.б.нужно опционал
     public Person findByBook (Book book) {
-        return peopleRepository.findByBook(book);
+        return peopleRepository.findByBooks(book);
     }
 
 

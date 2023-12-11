@@ -1,4 +1,4 @@
-package com.klachkova.library.modeles;
+package com.klachkova.library.models;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;

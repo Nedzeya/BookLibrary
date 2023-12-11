@@ -1,7 +1,7 @@
 package com.klachkova.library.controllers;
 
-import com.klachkova.library.modeles.Book;
-import com.klachkova.library.modeles.Person;
+import com.klachkova.library.models.Book;
+import com.klachkova.library.models.Person;
 import com.klachkova.library.services.BooksService;
 import com.klachkova.library.services.PeopleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,8 +37,8 @@ public class BooksController {
                        Model model ) {
         Book book = booksService.findOne(id);
         model.addAttribute("book", booksService.findOne(id));
-        // есть метод поиска человека по книге в peopleRepository
-        model.addAttribute("person",peopleService.findByBook(book));
+        // есть метод поиска человека по книге в peopleRepository вызывает ошибку
+    //    model.addAttribute("person",peopleService.findByBook(book));
 
         model.addAttribute("people",peopleService.findAll());
 

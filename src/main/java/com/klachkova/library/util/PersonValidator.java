@@ -1,6 +1,6 @@
 package com.klachkova.library.util;
 
-import com.klachkova.library.modeles.Person;
+import com.klachkova.library.models.Person;
 import com.klachkova.library.services.PeopleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

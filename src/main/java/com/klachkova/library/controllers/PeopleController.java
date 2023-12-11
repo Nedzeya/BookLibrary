@@ -1,6 +1,6 @@
 package com.klachkova.library.controllers;
 
-import com.klachkova.library.modeles.Person;
+import com.klachkova.library.models.Person;
 import com.klachkova.library.services.BooksService;
 import com.klachkova.library.services.PeopleService;
 import com.klachkova.library.util.PersonValidator;
