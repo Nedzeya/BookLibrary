@@ -25,43 +25,41 @@
     <p style="font-weight: bold; color: green;">This book is free.</p>
 
 
+    <!-- //изменена передача данных с person_id на Person   <select name="person_id">   <option....
+            +  th:value="${person}"-->
+
     <form th:method="POST" th:action="@{/books/{id} (id=${book.getId()}) }">
         <label style="font-weight: bold">Select the person to whom you want to assign this book: </label>
+        <select name="person_id">
 
-        <!-- //изменена передача данных с person_id на Person   <select name="person_id">   <option....
-         +  th:value="${person}"-->
-
-         <select name="person" th:field="*{person}">
-
-             <option
-                     th:each="person: ${people}" th:value="${person}"
-                     th:text="${person.getName()}">
-
-             </option>
-         </select>
-         <button type="submit">Assign</button>
-     </form>
+           <option
+                   th:each="person: ${people}" th:value="${person.getPerson_id()}"
+                   th:text="${person.getName()}">
+           </option>
+       </select>
+       <button type="submit">Assign</button>
+   </form>
 
 
- </a>
- <br>
+</a>
+<br>
 
- <a th:href="@{/books/{id}/edit (id=${book.getId()}) }">
-     <hr/>
-     <input type="submit" style="color:orange" value="Edit"/>
- </a>
+<a th:href="@{/books/{id}/edit (id=${book.getId()}) }">
+   <hr/>
+   <input type="submit" style="color:orange" value="Edit"/>
+</a>
 
- <form th:method="DELETE" th:action="@{/books/{id} (id = ${book.getId()}) }">
-     <br>
-     <input type="submit" value="Delete"/>
- </form>
- <br>
- <br>
- <a th:href="@{/books }"> >< Back to book list </a>
- <br>
- <br>
- <a th:href="@{/people }"> o-< Back to people list </a>
+<form th:method="DELETE" th:action="@{/books/{id} (id = ${book.getId()}) }">
+   <br>
+   <input type="submit" value="Delete"/>
+</form>
+<br>
+<br>
+<a th:href="@{/books }"> >< Back to book list </a>
+<br>
+<br>
+<a th:href="@{/people }"> o-< Back to people list </a>
 
 
- </body>
- </html>
+</body>
+</html>

@@ -38,7 +38,7 @@ public class BooksController {
         Book book = booksService.findOne(id);
         model.addAttribute("book", booksService.findOne(id));
         // есть метод поиска человека по книге в peopleRepository вызывает ошибку
-    //    model.addAttribute("person",peopleService.findByBook(book));
+        model.addAttribute("person",peopleService.findByBook(book));
 
         model.addAttribute("people",peopleService.findAll());
 
@@ -89,10 +89,12 @@ public class BooksController {
 
     //необходимо принимать человека а не его айди @RequestParam("person_id") int selectedPerson_id,изменено
     @PostMapping("/{id}")
-    public String assign (@RequestParam("person") Person person,
+    public String assign (@RequestParam("person_id")  int selectedPerson_id,
                           @PathVariable("id") int id){
 
+        Person person = peopleService.findOne(selectedPerson_id);
         booksService.assign (person,id);
+
         return "redirect:/books/{id}";
     }
 
