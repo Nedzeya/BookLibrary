@@ -6,11 +6,22 @@
 </head>
 <body>
 
+<a th:if="${page} == null ">
 
-<div th:each="book: ${books}">
-    <a th:href="@{/books/{id}(id=${book.getId()})}"
-       th:text="${book.getNameOfBook()+ ', '+ book.getAuthor() + ', ' + book.getYear()} "> book </a>
-</div>
+    <div th:each="book: ${books}">
+        <a th:href="@{/books/{id}(id=${book.getId()})}"
+           th:text="${book.getNameOfBook()+ ', '+ book.getAuthor() + ', ' + book.getYear()} "> book </a>
+    </div>
+</a>
+
+<a th:if="${page} != null ">
+
+    <div th:each="i : ${#numbers.sequence(page * books_per_page, (page + 1) * books_per_page - 1)}">
+        <a th:if="${i lt books.size()}" th:href="@{/books/{id}(id=${books[i].getId()})}"
+           th:text="${books[i].getNameOfBook() + ', ' + books[i].getAuthor() + ', ' + books[i].getYear()}">book</a>
+    </div>
+</a>
+
 
 <br>
 <hr/>

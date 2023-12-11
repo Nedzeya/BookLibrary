@@ -27,8 +27,14 @@ public class BooksController {
     }
 
     @GetMapping()
-    public String index(Model model) {
+    public String index(Model model,
+                        @RequestParam (value = "page", required = false) Integer page,
+                        @RequestParam (value = "books_per_page", required = false) Integer books_per_page) {
+
         model.addAttribute("books", booksService.findAll());
+        model.addAttribute("page", page);
+        model.addAttribute("books_per_page",books_per_page);
+
         return "books/index";
     }
 
@@ -37,7 +43,7 @@ public class BooksController {
                        Model model ) {
         Book book = booksService.findOne(id);
         model.addAttribute("book", booksService.findOne(id));
-        // есть метод поиска человека по книге в peopleRepository вызывает ошибку
+
         model.addAttribute("person",peopleService.findByBook(book));
 
         model.addAttribute("people",peopleService.findAll());
@@ -87,7 +93,6 @@ public class BooksController {
        return "redirect:/books/{id}";
     }
 
-    //необходимо принимать человека а не его айди @RequestParam("person_id") int selectedPerson_id,изменено
     @PostMapping("/{id}")
     public String assign (@RequestParam("person_id")  int selectedPerson_id,
                           @PathVariable("id") int id){
