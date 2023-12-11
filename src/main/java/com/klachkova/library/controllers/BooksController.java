@@ -10,7 +10,11 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+
 import javax.validation.Valid;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 @Controller
 @RequestMapping("/books")
@@ -19,40 +23,47 @@ public class BooksController {
     private final BooksService booksService;
 
 
-
     @Autowired
-    public BooksController( PeopleService peopleService, BooksService booksService) {
+    public BooksController(PeopleService peopleService, BooksService booksService) {
         this.peopleService = peopleService;
         this.booksService = booksService;
     }
 
     @GetMapping()
     public String index(Model model,
-                        @RequestParam (value = "page", required = false) Integer page,
-                        @RequestParam (value = "books_per_page", required = false) Integer books_per_page) {
+                        @RequestParam(value = "page", required = false) Integer page,
+                        @RequestParam(value = "books_per_page", required = false) Integer books_per_page,
+                        @RequestParam(value = "sort_by_year", required = false) Boolean sort_by_year
+    ) {
 
-        model.addAttribute("books", booksService.findAll());
+        List<Book> books = booksService.findAll();
+
+        if (sort_by_year != null && sort_by_year) {
+            Collections.sort(books, Comparator.comparing(Book::getYear));
+        }
+
+        model.addAttribute("books", books);
         model.addAttribute("page", page);
-        model.addAttribute("books_per_page",books_per_page);
+        model.addAttribute("books_per_page", books_per_page);
 
         return "books/index";
     }
 
     @GetMapping("/{id}")
     public String show(@PathVariable("id") int id,
-                       Model model ) {
+                       Model model) {
         Book book = booksService.findOne(id);
         model.addAttribute("book", booksService.findOne(id));
 
-        model.addAttribute("person",peopleService.findByBook(book));
+        model.addAttribute("person", peopleService.findByBook(book));
 
-        model.addAttribute("people",peopleService.findAll());
+        model.addAttribute("people", peopleService.findAll());
 
         return "books/show";
     }
 
     @GetMapping("/new")
-    public String newBook(@ModelAttribute("book")Book book) {
+    public String newBook(@ModelAttribute("book") Book book) {
 
         return "books/new";
     }
@@ -87,18 +98,19 @@ public class BooksController {
         return "redirect:/books";
 
     }
-   @GetMapping ("/{id}/free")
-   public String free ( @PathVariable("id") int id) {
-       booksService.free (id);
-       return "redirect:/books/{id}";
+
+    @GetMapping("/{id}/free")
+    public String free(@PathVariable("id") int id) {
+        booksService.free(id);
+        return "redirect:/books/{id}";
     }
 
     @PostMapping("/{id}")
-    public String assign (@RequestParam("person_id")  int selectedPerson_id,
-                          @PathVariable("id") int id){
+    public String assign(@RequestParam("person_id") int selectedPerson_id,
+                         @PathVariable("id") int id) {
 
         Person person = peopleService.findOne(selectedPerson_id);
-        booksService.assign (person,id);
+        booksService.assign(person, id);
 
         return "redirect:/books/{id}";
     }
