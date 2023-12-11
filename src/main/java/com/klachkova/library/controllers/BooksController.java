@@ -120,4 +120,14 @@ public class BooksController {
         booksService.delete(id);
         return "redirect:/books";
     }
+
+    @GetMapping ("/search")
+    public String search(
+         //   @RequestParam("searchTerm") String searchTerm
+            ){
+
+       // System.out.println("search term is: " + searchTerm);
+        //booksService.findAll(searchTerm);
+        return "books/search";
+    }
 }

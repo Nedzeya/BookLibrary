@@ -25,6 +25,11 @@ public class BooksService {
     public List<Book> findAll() {
         return booksRepository.findAll();
     }
+
+    // findAllByString
+    public List <Book>findAll (String searchTeam){
+        return booksRepository.findByNameOfBook(searchTeam);
+    }
     // show by id
 
     public Book findOne(int id) {
