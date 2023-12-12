@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -121,13 +122,18 @@ public class BooksController {
         return "redirect:/books";
     }
 
-    @GetMapping ("/search")
-    public String search(
-         //   @RequestParam("searchTerm") String searchTerm
-            ){
+    @GetMapping("/search")
+    public String search(Model model,
+                         @RequestParam(value = "searchTerm", required = false) String searchTerm) {
 
-       // System.out.println("search term is: " + searchTerm);
-        //booksService.findAll(searchTerm);
+        System.out.println("search term is: " + searchTerm);
+
+        List<Book> books = new ArrayList<>();
+        if (searchTerm != null) {
+            books = booksService.findAll(searchTerm);
+        }
+
+        model.addAttribute("books", books);
         return "books/search";
     }
 }

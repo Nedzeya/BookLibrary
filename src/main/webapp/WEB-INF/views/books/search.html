@@ -7,11 +7,21 @@
 <body>
 
 
-<form th:method="GET" th:action="@{books/search}">
+<form th:method="GET" >
     <label for="searchTerm">Enter your search term:</label>
     <input type="text" id="searchTerm" name="searchTerm"/>
     <button type="submit">Search</button>
+
 </form>
+
+
+
+<a th:if="${param.searchTerm != null and books.isEmpty()}">
+    <label> No books found </label>
+</a>
+
+
+
 
 </body>
 </html>
