@@ -129,7 +129,7 @@ public class BooksController {
         System.out.println("search term is: " + searchTerm);
 
         List<Book> books = new ArrayList<>();
-        if (searchTerm != null) {
+        if (searchTerm != null && searchTerm.length()>0) {
             books = booksService.findAll(searchTerm);
         }
 

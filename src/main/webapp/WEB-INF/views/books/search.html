@@ -7,20 +7,40 @@
 <body>
 
 
-<form th:method="GET" >
+<form th:method="GET">
     <label for="searchTerm">Enter your search term:</label>
     <input type="text" id="searchTerm" name="searchTerm"/>
     <button type="submit">Search</button>
 
 </form>
 
-
+<br>
 
 <a th:if="${param.searchTerm != null and books.isEmpty()}">
     <label> No books found </label>
 </a>
 
+<a th:if="${param.searchTerm != null and !books.isEmpty()}">
 
+    <div th:each="book: ${books}">
+
+        <a th:href="@{/books/{id}(id=${book.getId()})}"
+           th:text="${book.getNameOfBook()+ ', '+ book.getAuthor() + ', ' + book.getYear()} "> book </a>
+
+        <a th:if="${book.getOwner()} != null ">
+            <p>
+                <span style="font-weight: bold">This book is now in the possession of: </span>
+                <span th:text="${book.getOwner().getName()}"></span>
+            </p>
+
+        </a>
+
+        <a th:unless="${book.getOwner()} != null ">
+            <p style="font-weight: bold; color: green;">This book is free.</p>
+        </a>
+
+    </div>
+</a>
 
 
 </body>
