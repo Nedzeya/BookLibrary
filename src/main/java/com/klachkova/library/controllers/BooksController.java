@@ -125,14 +125,10 @@ public class BooksController {
     @GetMapping("/search")
     public String search(Model model,
                          @RequestParam(value = "searchTerm", required = false) String searchTerm) {
-
-        System.out.println("search term is: " + searchTerm);
-
         List<Book> books = new ArrayList<>();
         if (searchTerm != null && searchTerm.length()>0) {
             books = booksService.findAll(searchTerm);
         }
-
         model.addAttribute("books", books);
         return "books/search";
     }

@@ -2,6 +2,7 @@ package com.klachkova.library.models;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
+import java.util.Date;
 
 @Entity
 @Table(name = "Book")
@@ -12,7 +13,7 @@ public class Book {
     private int id;
     @NotEmpty(message = "Name of the book should not be empty")
     @Size(min = 1, max = 100, message = "Name of the book should be between 1 and 100 characters")
-    @Column(name = "nameofbook")
+    @Column(name = "name_of_book")
     private String nameOfBook;
 
     @Size(min = 0, max = 50, message = "The author's name must not exceed 50 characters")
@@ -27,6 +28,11 @@ public class Book {
     @ManyToOne
     @JoinColumn(name = "person_id", referencedColumnName = "person_id")
     private Person owner;
+
+    //время назначения книги
+    @Column(name= "assign_time")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date assignTime;
 
     public Book() {
     }
@@ -75,5 +81,13 @@ public class Book {
 
     public Person getOwner() {
         return owner;
+    }
+
+    public Date getAssignTime() {
+        return assignTime;
+    }
+
+    public void setAssignTime(Date assignTime) {
+        this.assignTime = assignTime;
     }
 }
