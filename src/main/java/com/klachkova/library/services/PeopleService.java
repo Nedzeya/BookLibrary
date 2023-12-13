@@ -29,12 +29,11 @@ public class PeopleService {
         return foundPerson.orElse(null);
     }
 
-    // метод для поиска человека по имени и году  ( кастомный)
+
     public Optional<Person> findOne (String name, int year){
         return peopleRepository.findByNameAndYear(name,year);
     }
-    // метод для поиска человека по книге возможно Servlet.init() для сервлета [dispatcher] выбросил исключение
-    // м.б.нужно опционал
+
     public Person findByBook (Book book) {
         return peopleRepository.findByBooks(book);
     }
@@ -47,7 +46,7 @@ public class PeopleService {
 
     @Transactional
     public void update (int id, Person updatedPerson){
-        updatedPerson.setPerson_id(id); // указываем, чтобы у измененного человека был тот же айди, тогда sava человека перезапишет
+        updatedPerson.setPerson_id(id);
         peopleRepository.save(updatedPerson);
     }
 

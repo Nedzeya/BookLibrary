@@ -8,5 +8,5 @@ import java.util.List;
 
 public interface BooksRepository extends JpaRepository<Book,Integer> {
     List<Book> findByOwner(Person owner);
-    List<Book> findByNameOfBookContaining(String searchTerm);
+    List<Book> findByNameOfBookContainingIgnoreCaseOrAuthorContainingIgnoreCase(String nameOfBook, String author);
 }

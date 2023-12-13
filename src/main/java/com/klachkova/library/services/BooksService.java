@@ -31,7 +31,7 @@ public class BooksService {
     // findAllByString
     public List<Book> findAll(String searchTeam) {
 
-        return booksRepository.findByNameOfBookContaining(searchTeam);
+        return booksRepository.findByNameOfBookContainingIgnoreCaseOrAuthorContainingIgnoreCase(searchTeam, searchTeam);
 
     }
     // show by id
@@ -42,7 +42,11 @@ public class BooksService {
     }
 
     public List<Book> findByOwner(Person owner) {
-        return booksRepository.findByOwner(owner);
+        List<Book> books = booksRepository.findByOwner(owner);
+        for (Book book : books) {
+            overdue(book);
+        }
+        return books;
     }
 
     @Transactional
@@ -52,12 +56,10 @@ public class BooksService {
 
     @Transactional
     public void update(int id, Book updatedBook) {
-        updatedBook.setId(id); // указываем, чтобы у измененной книги был тот же айди,
-        // тогда savе книгу перезапишет
+        updatedBook.setId(id);
         booksRepository.save(updatedBook);
     }
 
-    //освободить книгу
 
     @Transactional
     public void free(int id) {
@@ -69,7 +71,6 @@ public class BooksService {
         booksRepository.save(currentBook);
     }
 
-    // назначить книгу, изменены вводные данные с айди человека на человека
 
     @Transactional
     public void assign(Person person, int id) {
@@ -86,11 +87,11 @@ public class BooksService {
         booksRepository.deleteById(id);
     }
 
-    //проверка просрочен ли срок сдачи книги
-        public void overdue (Book book) {
+    //checking whether a book is overdue
+    public void overdue(Book book) {
         Duration duration = Duration.between(book.getAssignTime().toInstant(), new Date().toInstant());
-            book.setOverdue(duration.toDays() >= 10);
-            booksRepository.save(book);
+        book.setOverdue(duration.toDays() >= 10);
+        booksRepository.save(book);
     }
 
 
