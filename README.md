@@ -1,6 +1,6 @@
-#Libraru
-
-## The Library web application allows you to register readers, issue books to them, and release books (after the reader returns the book back to the library). There is pagination for books, sorting books by year, book search page by title. There is also an automatic check to see if a person is overdue to return a book.
+# Book Libraru
+#
+## The Book Library web application allows you to register readers, issue books to them, and release books (after the reader returns the book back to the library). There is pagination for books, sorting books by year, book search page by title. There is also an automatic check to see if a person is overdue to return a book.
 #
 ### There is a page with a list of all people, where you can add a new reader (people are clickable - clicking on them will take you to the person's page).
 ![File_of_people_list](documents/pictures/PeopleList.png)
