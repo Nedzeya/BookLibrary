@@ -16,7 +16,8 @@
     <hr/>
     <p style="font-weight:bold" th:text ="${'Books:'}"> text </p>
 
-    <tr th:each="book: ${books}" >
+    <tr th:each="book: ${books}"
+        th:style="${book.isOverdue()}? 'color:red'">
 
         <td th:text="${book.nameOfBook + ', '}">Name of book</td>
         <td th:text="${book.author + ', '}"> Author</td>

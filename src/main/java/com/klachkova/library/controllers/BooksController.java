@@ -60,6 +60,7 @@ public class BooksController {
 
         model.addAttribute("people", peopleService.findAll());
 
+
         return "books/show";
     }
 

@@ -2,6 +2,7 @@ package com.klachkova.library.models;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
+import java.time.Duration;
 import java.util.Date;
 
 @Entity
@@ -33,6 +34,9 @@ public class Book {
     @Column(name= "assign_time")
     @Temporal(TemporalType.TIMESTAMP)
     private Date assignTime;
+
+    @Transient
+    private boolean overdue;
 
     public Book() {
     }
@@ -90,4 +94,14 @@ public class Book {
     public void setAssignTime(Date assignTime) {
         this.assignTime = assignTime;
     }
+
+    public boolean isOverdue() {
+        return overdue;
+    }
+
+    public void setOverdue(boolean overdue) {
+        this.overdue = overdue;
+    }
+
+
 }

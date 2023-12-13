@@ -1,5 +1,6 @@
 package com.klachkova.library.controllers;
 
+import com.klachkova.library.models.Book;
 import com.klachkova.library.models.Person;
 import com.klachkova.library.services.BooksService;
 import com.klachkova.library.services.PeopleService;
@@ -11,6 +12,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @Controller
 @RequestMapping("/people")
@@ -38,9 +40,15 @@ public class PeopleController {
 
     @GetMapping("/{id}")
     public String show(@PathVariable("id") int id, Model model) {
+
         Person person = peopleService.findOne(id);
+        List<Book> books = booksService.findByOwner(person);
+
+        //проверка на просрочку книг
+        for (Book book: books ) { booksService.overdue(book); }
+
         model.addAttribute("person", person);
-        model.addAttribute("books", booksService.findByOwner(person));
+        model.addAttribute("books", books );
 
         return "people/show";
     }

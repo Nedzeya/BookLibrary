@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.Duration;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -28,9 +29,9 @@ public class BooksService {
     }
 
     // findAllByString
-    public List <Book>findAll (String searchTeam){
+    public List<Book> findAll(String searchTeam) {
 
-            return booksRepository.findByNameOfBookContaining(searchTeam);
+        return booksRepository.findByNameOfBookContaining(searchTeam);
 
     }
     // show by id
@@ -40,7 +41,7 @@ public class BooksService {
         return foundBook.orElse(null);
     }
 
-    public List<Book> findByOwner (Person owner) {
+    public List<Book> findByOwner(Person owner) {
         return booksRepository.findByOwner(owner);
     }
 
@@ -63,6 +64,7 @@ public class BooksService {
         Book currentBook = findOne(id);
         currentBook.setOwner(null);
         currentBook.setId(id);
+        currentBook.setAssignTime(null);
 
         booksRepository.save(currentBook);
     }
@@ -70,7 +72,7 @@ public class BooksService {
     // назначить книгу, изменены вводные данные с айди человека на человека
 
     @Transactional
-    public void assign (Person person, int id) {
+    public void assign(Person person, int id) {
         Book currentBook = findOne(id);
         currentBook.setOwner(person);
         currentBook.setId(id);
@@ -78,8 +80,18 @@ public class BooksService {
 
         booksRepository.save(currentBook);
     }
+
     @Transactional
     public void delete(int id) {
         booksRepository.deleteById(id);
     }
+
+    //проверка просрочен ли срок сдачи книги
+        public void overdue (Book book) {
+        Duration duration = Duration.between(book.getAssignTime().toInstant(), new Date().toInstant());
+            book.setOverdue(duration.toDays() >= 10);
+            booksRepository.save(book);
+    }
+
+
 }
