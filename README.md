@@ -26,17 +26,29 @@
 ### Book edit page
 ![File_of_book_edit](documents/pictures/EditBook.png)
 #
+#
+### The list of books can be paginated by specifying the number of pages and the number of books on one page
+![File_of_book_edit](documents/pictures/BooksPageBooks_per_page.png)
+#
+#
+### It is possible to sort books by year
+![File_of_book_edit](documents/pictures/BooksSortByYear.png)
+#
+#
+### Search for books by title or author (full or part)
+![File_of_book_edit](documents/pictures/BooksSearch.png)
+#
+#
+### An automatic check to see if a person is overdue for a book return. The book is highlighted in red
+![File_of_book_edit](documents/pictures/BookOverdueRed.png)
+#
 ***Re-additions of a person with already existing data (full name and year of birth) are not allowed. 
 The book can be taken by a person over 6 years of age. 
 One book can only belong to one person. 
-Entering the name of the author of the book is not obligatory.***
+Entering the name of the author of the book is not obligatory.
+The deadline for returning a book is 10 days.***
 
 ____
 *Java 11.0.0.1
 ____
-+ Spring MVC
-+ JDBC API
-+ PostgreSQL
-+ Spring Validator
-+ Thymeleaf
- 
+![Java](https://img.shields.io/badge/java-%23ED8B00.svg?style=for-the-badge&logo=openjdk&logoColor=white)  ![Spring](https://img.shields.io/badge/spring-%236DB33F.svg?style=for-the-badge&logo=spring&logoColor=white)  ![Postgres](https://img.shields.io/badge/postgres-%23316192.svg?style=for-the-badge&logo=postgresql&logoColor=white)  ![Hibernate](https://img.shields.io/badge/Hibernate-59666C?style=for-the-badge&logo=Hibernate&logoColor=white)  ![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white)  ![CSS3](https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white)  ![Apache Maven](https://img.shields.io/badge/Apache%20Maven-C71A36?style=for-the-badge&logo=Apache%20Maven&logoColor=white)  ![Apache Tomcat](https://img.shields.io/badge/apache%20tomcat-%23F8DC75.svg?style=for-the-badge&logo=apache-tomcat&logoColor=black)![Spring Data JPA](https://img.shields.io/badge/Spring%20Data%20JPA-59666C?style=for-the-badge&logo=Spring%20Data%20JPA&logoColor=white)
